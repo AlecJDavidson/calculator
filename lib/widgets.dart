@@ -3,20 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_calc/styling.dart';
 import 'package:flutter_calc/math.dart';
 
-int result = 9999999;
-String inputBar;
-int num1;
-int num2;
+String _inputBar = '';
 
 class NavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 50,
-      alignment: Alignment.bottomCenter,
       child: Padding(
-        padding: EdgeInsets.only(left: 40, right: 35, top: 60),
+        padding: EdgeInsets.only(left: 25, right: 25, top: 50),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             NavBarItem(icon: CupertinoIcons.clock),
             Spacer(),
@@ -28,10 +25,15 @@ class NavigationBar extends StatelessWidget {
   }
 }
 
-class NavBarItem extends StatelessWidget {
+class NavBarItem extends StatefulWidget {
   final IconData icon;
   const NavBarItem({Key key, this.icon}) : super(key: key);
 
+  @override
+  _NavBarItemState createState() => _NavBarItemState();
+}
+
+class _NavBarItemState extends State<NavBarItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -43,7 +45,7 @@ class NavBarItem extends StatelessWidget {
       child: IconButton(
         iconSize: 30,
         icon: Icon(
-          icon,
+          widget.icon,
           color: lightText,
         ),
         onPressed: () {},
@@ -61,15 +63,14 @@ class InputHistory extends StatefulWidget {
 }
 
 class _InputHistoryState extends State<InputHistory> {
-  String _inputHistory = '';
   @override
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.bottomRight,
       child: Padding(
-        padding: EdgeInsets.only(right: 55, top: 100),
+        padding: EdgeInsets.only(right: 70, top: 100),
         child: Text(
-          '$_inputHistory',
+          'input history',
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
         ),
       ),
@@ -78,33 +79,31 @@ class _InputHistoryState extends State<InputHistory> {
 }
 
 class InputBar extends StatefulWidget {
-  final inputBar;
-  InputBar({Key key, this.inputBar}) : super(key: key);
+  InputBar({Key key}) : super(key: key);
+
   @override
   _InputBarState createState() => _InputBarState();
 }
 
 class _InputBarState extends State<InputBar> {
-  void addInput(num) {
-    setState(() {
-      result += num;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
-      alignment: Alignment.bottomCenter,
-      child: Padding(
-        padding: EdgeInsets.only(left: 110, top: 15),
-        child: Text(
-          '$result',
-          style: TextStyle(fontSize: 50, fontWeight: FontWeight.w500),
+        child: Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: <Widget>[
+        Padding(
+          padding: EdgeInsets.only(right: 60, top: 15),
+          child: Text(
+            '$_inputBar',
+            style: TextStyle(fontSize: 50, fontWeight: FontWeight.w500),
+          ),
         ),
-      ),
-    );
+      ],
+    ));
   }
 }
+
 
 class NumPad extends StatelessWidget {
   const NumPad({Key key}) : super(key: key);
@@ -112,13 +111,13 @@ class NumPad extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      alignment: Alignment.bottomCenter,
       child: Padding(
-        padding: EdgeInsets.only(left: 30, right: 0, top: 60),
+        padding: EdgeInsets.only(top: 60),
         child: Column(
           children: <Widget>[
             Container(
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   NumButton(text: 'C'),
                   NumButton(text: '+/-'),
@@ -128,33 +127,37 @@ class NumPad extends StatelessWidget {
               ),
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                NumButton(text: '7', num: 7),
-                NumButton(text: '8', num: 8),
-                NumButton(text: '9', num: 9),
+                NumButton(text: '7'),
+                NumButton(text: '8'),
+                NumButton(text: '9'),
                 NumButton(text: 'X'),
               ],
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                NumButton(text: '4', num: 4),
-                NumButton(text: '5', num: 5),
-                NumButton(text: '6', num: 6),
+                NumButton(text: '4'),
+                NumButton(text: '5'),
+                NumButton(text: '6'),
                 NumButton(text: '-'),
               ],
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                NumButton(text: '1', num: 1),
-                NumButton(text: '2', num: 2),
-                NumButton(text: '3', num: 3),
+                NumButton(text: '1'),
+                NumButton(text: '2'),
+                NumButton(text: '3'),
                 AddButton(text: '+'),
               ],
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 NumButton(text: ''),
-                NumButton(text: '0', num: 0),
+                NumButton(text: '0'),
                 NumButton(text: '.'),
                 NumButton(text: '='),
               ],
@@ -166,25 +169,44 @@ class NumPad extends StatelessWidget {
   }
 }
 
-class NumButton extends StatelessWidget {
+class NumButton extends StatefulWidget {
+  const NumButton({Key key, this.text}) : super(key: key);
+
   final String text;
-  final int num;
-  const NumButton({Key key, this.text, this.num}) : super(key: key);
+  @override
+  _NumButtonState createState() => _NumButtonState();
+}
+
+class _NumButtonState extends State<NumButton> {
+  void _addInput() {
+    setState(() {
+      // This call to setState tells the Flutter framework that something has
+      // changed in this State, which causes it to rerun the build method below
+      // so that the display can reflect the updated values. If we changed
+      // _counter without calling setState(), then the build method would not be
+      // called again, and so nothing would appear to happen.
+      _inputBar += '1';
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 65,
-      width: 75,
-      decoration: BoxDecoration(
-        color: primaryLightColor,
-      ),
-      child: TextButton(
-        style: TextButton.styleFrom(primary: lightText),
-        onPressed: () {
-        },
-        child: Text(
-          text,
-          style: TextStyle(fontSize: 40, fontWeight: FontWeight.w500),
+    return Center(
+      child: Container(
+        // height: 65,
+        // width: Max,
+        decoration: BoxDecoration(
+          color: primaryLightColor,
+        ),
+        child: TextButton(
+          style: TextButton.styleFrom(primary: lightText),
+          onPressed: () {
+            _addInput();
+          },
+          child: Text(
+            widget.text,
+            style: TextStyle(fontSize: 40, fontWeight: FontWeight.w500),
+          ),
         ),
       ),
     );
@@ -205,7 +227,9 @@ class AddButton extends StatelessWidget {
       ),
       child: TextButton(
         style: TextButton.styleFrom(primary: lightText),
-        onPressed: () {},
+        onPressed: () {
+          _inputBar += '1';
+        },
         child: Text(
           text,
           style: TextStyle(fontSize: 40, fontWeight: FontWeight.w500),
