@@ -5,6 +5,8 @@ Color primaryDarkColor = Color(0xFF000000);
 Color secondaryDarkColor = Color(0xFF1D1B1B);
 Color lightText = Color(0xFF000000);
 Color darkText = Color(0xFFFFFFFF);
+Color darkButton1 = Color(0xFF3BB9B9);
+Color darkButton2 = Color(0xFFF39C9C);
 
 
 // List<BoxShadow> customShadow = [
