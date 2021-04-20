@@ -1,10 +1,7 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_calc/styling.dart';
-import 'package:flutter_calc/widgets.dart';
+
 
 void main() {
   runApp(CalculatorApp());
@@ -126,15 +123,15 @@ class _CalculatorState extends State<Calculator> {
     });
   }
 
-  void _close() {
-    setState(() {
-      if (Platform.isAndroid) {
-        SystemNavigator.pop();
-      } else if (Platform.isIOS) {
-        exit(0);
-      }
-    });
-  }
+  // void _close() {
+  //   setState(() {
+  //     if (Platform.isAndroid) {
+  //       SystemNavigator.pop();
+  //     } else if (Platform.isIOS) {
+  //       exit(0);
+  //     }
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -312,7 +309,10 @@ class _CalculatorState extends State<Calculator> {
                         TextButton(
                           style: TextButton.styleFrom(primary: darkText),
                           onPressed: () {
-                            setOperator('x');
+                            if (operatorStatus == true) {
+                                calculate();
+                              }
+                              setOperator('x');
                           },
                           child: Text(
                             'x',
@@ -369,7 +369,10 @@ class _CalculatorState extends State<Calculator> {
                         TextButton(
                           style: TextButton.styleFrom(primary: darkText),
                           onPressed: () {
-                            setOperator('-');
+                            if (operatorStatus == true) {
+                                calculate();
+                              }
+                              setOperator('-');
                           },
                           child: Text(
                             '-',
@@ -426,7 +429,10 @@ class _CalculatorState extends State<Calculator> {
                         TextButton(
                           style: TextButton.styleFrom(primary: darkText),
                           onPressed: () {
-                            setOperator('+');
+                            if (operatorStatus == true) {
+                                calculate();
+                              }
+                              setOperator('+');
                           },
                           child: Text(
                             '+',
