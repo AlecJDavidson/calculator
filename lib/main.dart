@@ -202,7 +202,7 @@ class _CalculatorState extends State<Calculator> {
             Container(
               color: secondaryDarkColor,
               child: Padding(
-                padding: EdgeInsets.only(top: 60),
+                padding: EdgeInsets.only(top: 25,bottom: 35),
                 child: Column(
                   children: <Widget>[
                     Container(
