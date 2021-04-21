@@ -123,16 +123,6 @@ class _CalculatorState extends State<Calculator> {
     });
   }
 
-  // void _close() {
-  //   setState(() {
-  //     if (Platform.isAndroid) {
-  //       SystemNavigator.pop();
-  //     } else if (Platform.isIOS) {
-  //       exit(0);
-  //     }
-  //   });
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
