@@ -141,6 +141,7 @@ class _CalculatorState extends State<Calculator> {
               child: Container(
                 child: Row(
                   children: [
+                    
                     Text(
                       '$_inputHistory',
                       style: TextStyle(
