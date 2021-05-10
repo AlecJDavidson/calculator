@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_calc/styling.dart';
 
-
 void main() {
   runApp(CalculatorApp());
 }
@@ -119,6 +118,11 @@ class _CalculatorState extends State<Calculator> {
         _inputBar1 = (num1 / num2).toString();
         _reset();
         operatorStatus = false;
+      } else if (_operator == '%') {
+        setInputHistory();
+        _inputBar1 = ((num1 * 0.01) * (num2)).toString();
+        _reset();
+        operatorStatus = false;
       }
     });
   }
@@ -130,129 +134,118 @@ class _CalculatorState extends State<Calculator> {
       body: Center(
         child: Column(
           children: <Widget>[
-            // NavigationBar
-            Container(
-              height: 50,
-              child: Padding(
-                padding: EdgeInsets.only(left: 25, right: 25, top: 25),
+            // InputHistory
+
+            Expanded(
+              flex: 2,
+              child: Container(
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    // NavBarItem(icon: CupertinoIcons.clock, func: _close),
-                    Spacer(),
-                    // NavBarItem(icon: CupertinoIcons.back),
+                    Text(
+                      '$_inputHistory',
+                      style: TextStyle(
+                          color: darkText,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500),
+                    ),
                   ],
                 ),
               ),
             ),
-            // NavigationBar End
-            // -----------------
-            // InputHistory
-            Container(
-              alignment: Alignment.bottomRight,
-              child: Padding(
-                padding: EdgeInsets.only(right: 40, top: 100),
-                child: Text(
-                  '$_inputHistory',
-                  style: TextStyle(
-                      color: darkText,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500),
-                ),
-              ),
-            ),
+
             // InputHistory End
             // -----------------
             // InputBar
-            Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(right: 10, top: 15, bottom: 30),
-                    child: SingleChildScrollView(
-                      child: Text(
-                        '$_inputBar1' + ' $_operator ' + '$_inputBar2',
-                        style: TextStyle(
-                            color: darkText,
-                            fontSize: 50,
-                            fontWeight: FontWeight.w500),
-                      ),
+            Expanded(
+              flex: 2,
+              child: Container(
+                child: Row(
+                  // mainAxisAlignment: MainAxisAlignment.center, // makes input center
+                  children: <Widget>[
+                    Text(
+                      '$_inputBar1' + ' $_operator ' + '$_inputBar2',
+                      style: TextStyle(
+                          color: darkText,
+                          fontSize: 50,
+                          fontWeight: FontWeight.w500),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
             // InputBar End
             // -----------------
             // NumPad
-            Container(
-              color: secondaryDarkColor,
-              child: Padding(
-                padding: EdgeInsets.only(top: 25,bottom: 35),
+            // Container(
+            // height: 700,
+            // width: double.infinity,
+
+            Expanded(
+              flex: 10,
+              child: Container(
+                color: secondaryDarkColor,
                 child: Column(
-                  children: <Widget>[
-                    Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          TextButton(
-                            style: TextButton.styleFrom(primary: darkText),
-                            onPressed: () {
-                              _clearInput();
-                            },
-                            child: Text(
-                              'C',
-                              style: TextStyle(
-                                  color: darkButton1,
-                                  fontSize: 40,
-                                  fontWeight: FontWeight.w500),
-                            ),
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        TextButton(
+                          style: TextButton.styleFrom(primary: darkText),
+                          onPressed: () {
+                            _clearInput();
+                          },
+                          child: Text(
+                            'C',
+                            style: TextStyle(
+                                color: darkButton1,
+                                fontSize: 40,
+                                fontWeight: FontWeight.w500),
                           ),
-                          TextButton(
-                            style: TextButton.styleFrom(primary: darkText),
-                            onPressed: () {
-                              _setPolarity();
-                            },
-                            child: Text(
-                              '+/-',
-                              style: TextStyle(
-                                  color: darkButton1,
-                                  fontSize: 40,
-                                  fontWeight: FontWeight.w500),
-                            ),
+                        ),
+                        TextButton(
+                          style: TextButton.styleFrom(primary: darkText),
+                          onPressed: () {
+                            _setPolarity();
+                          },
+                          child: Text(
+                            '+/-',
+                            style: TextStyle(
+                                color: darkButton1,
+                                fontSize: 40,
+                                fontWeight: FontWeight.w500),
                           ),
-                          TextButton(
-                            style: TextButton.styleFrom(primary: darkText),
-                            onPressed: () {
-                              setOperator('%');
-                            },
-                            child: Text(
-                              '%',
-                              style: TextStyle(
-                                  color: darkButton1,
-                                  fontSize: 40,
-                                  fontWeight: FontWeight.w500),
-                            ),
+                        ),
+                        TextButton(
+                          style: TextButton.styleFrom(primary: darkText),
+                          onPressed: () {
+                            setOperator('%');
+                          },
+                          child: Text(
+                            '%',
+                            style: TextStyle(
+                                color: darkButton1,
+                                fontSize: 40,
+                                fontWeight: FontWeight.w500),
                           ),
-                          TextButton(
-                            style: TextButton.styleFrom(primary: darkText),
-                            onPressed: () {
-                              if (operatorStatus == true) {
-                                calculate();
-                              }
-                              setOperator('÷');
-                            },
-                            child: Text(
-                              '÷',
-                              style: TextStyle(
-                                  color: darkButton2,
-                                  fontSize: 55,
-                                  fontWeight: FontWeight.w500),
-                            ),
+                        ),
+                        TextButton(
+                          style: TextButton.styleFrom(primary: darkText),
+                          onPressed: () {
+                            if (operatorStatus == true) {
+                              calculate();
+                            }
+                            setOperator('÷');
+                          },
+                          child: Text(
+                            '÷',
+                            style: TextStyle(
+                                color: darkButton2,
+                                fontSize: 55,
+                                fontWeight: FontWeight.w500),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -300,9 +293,9 @@ class _CalculatorState extends State<Calculator> {
                           style: TextButton.styleFrom(primary: darkText),
                           onPressed: () {
                             if (operatorStatus == true) {
-                                calculate();
-                              }
-                              setOperator('x');
+                              calculate();
+                            }
+                            setOperator('x');
                           },
                           child: Text(
                             'x',
@@ -360,9 +353,9 @@ class _CalculatorState extends State<Calculator> {
                           style: TextButton.styleFrom(primary: darkText),
                           onPressed: () {
                             if (operatorStatus == true) {
-                                calculate();
-                              }
-                              setOperator('-');
+                              calculate();
+                            }
+                            setOperator('-');
                           },
                           child: Text(
                             '-',
@@ -420,9 +413,9 @@ class _CalculatorState extends State<Calculator> {
                           style: TextButton.styleFrom(primary: darkText),
                           onPressed: () {
                             if (operatorStatus == true) {
-                                calculate();
-                              }
-                              setOperator('+');
+                              calculate();
+                            }
+                            setOperator('+');
                           },
                           child: Text(
                             '+',
@@ -493,10 +486,11 @@ class _CalculatorState extends State<Calculator> {
                 ),
               ),
             ),
-            // NumPad End
           ],
         ),
       ),
     );
+
+    // NumPad End
   }
 }
