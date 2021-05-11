@@ -135,21 +135,24 @@ class _CalculatorState extends State<Calculator> {
         child: Column(
           children: <Widget>[
             // InputHistory
-
             Expanded(
               flex: 2,
               child: Container(
-                child: Row(
-                  children: [
-                    
-                    Text(
-                      '$_inputHistory',
-                      style: TextStyle(
-                          color: darkText,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500),
-                    ),
-                  ],
+                child: Padding(
+                  padding: EdgeInsets.only(left: 25, right: 75, top: 25),
+                  child: Row(
+                    mainAxisAlignment:
+                        MainAxisAlignment.end, // makes input center
+                    children: [
+                      Text(
+                        '$_inputHistory',
+                        style: TextStyle(
+                            color: darkText,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -160,17 +163,21 @@ class _CalculatorState extends State<Calculator> {
             Expanded(
               flex: 2,
               child: Container(
-                child: Row(
-                  // mainAxisAlignment: MainAxisAlignment.center, // makes input center
-                  children: <Widget>[
-                    Text(
-                      '$_inputBar1' + ' $_operator ' + '$_inputBar2',
-                      style: TextStyle(
-                          color: darkText,
-                          fontSize: 50,
-                          fontWeight: FontWeight.w500),
-                    ),
-                  ],
+                child: Padding(
+                  padding: EdgeInsets.only(left: 25, right: 75, top: 25),
+                  child: Row(
+                    mainAxisAlignment:
+                        MainAxisAlignment.end, // makes input center
+                    children: <Widget>[
+                      Text(
+                        '$_inputBar1' + ' $_operator ' + '$_inputBar2',
+                        style: TextStyle(
+                            color: darkText,
+                            fontSize: 50,
+                            fontWeight: FontWeight.w500),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
