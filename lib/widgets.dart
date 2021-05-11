@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_calc/styling.dart';
+import 'package:calculator/styling.dart';
 
 class AddButton extends StatelessWidget {
   final String text;
