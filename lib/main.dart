@@ -92,7 +92,7 @@ class _CalculatorState extends State<Calculator> {
 
   void setInputHistory() {
     setState(() {
-      _inputHistory = _inputBar1 + _operator + _inputBar2;
+      _inputHistory = _inputBar1 +' '+ _operator +' '+ _inputBar2;
     });
   }
 
@@ -134,53 +134,45 @@ class _CalculatorState extends State<Calculator> {
       body: Center(
         child: Column(
           children: <Widget>[
-            // InputHistory
+            // InputBar
             Expanded(
-              flex: 2,
+              flex: 6,
               child: Container(
-                child: Padding(
-                  padding: EdgeInsets.only(left: 25, right: 75, top: 25),
-                  child: Row(
-                    mainAxisAlignment:
-                        MainAxisAlignment.end, // makes input center
-                    children: [
-                      Text(
-                        '$_inputHistory',
-                        style: TextStyle(
-                            color: darkText,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500),
-                      ),
-                    ],
-                  ),
+                child: Row(
+                  mainAxisAlignment:
+                      MainAxisAlignment.end, // makes input center
+                  children: <Widget>[
+                    Column(
+                      mainAxisAlignment:
+                          MainAxisAlignment.end, // makes input center
+                      children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(65, 20, 25, 5),
+                          child: Text(
+                            '$_inputHistory',
+                            style: TextStyle(
+                                color: darkText,
+                                fontSize: 30,
+                                fontWeight: FontWeight.w500),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(30, 0, 0, 20),
+                          child: Text(
+                            '$_inputBar1' + ' $_operator ' + '$_inputBar2',
+                            style: TextStyle(
+                                color: darkText,
+                                fontSize: 60,
+                                fontWeight: FontWeight.w500),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
             ),
 
-            // InputHistory End
-            // -----------------
-            // InputBar
-            Expanded(
-              flex: 2,
-              child: Container(
-                child: Padding(
-                  padding: EdgeInsets.only(left: 25, right: 75, top: 25),
-                  child: Row(
-                    mainAxisAlignment:
-                        MainAxisAlignment.end, // makes input center
-                    children: <Widget>[
-                      Text(
-                        '$_inputBar1' + ' $_operator ' + '$_inputBar2',
-                        style: TextStyle(
-                            color: darkText,
-                            fontSize: 50,
-                            fontWeight: FontWeight.w500),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
             // InputBar End
             // -----------------
             // NumPad
