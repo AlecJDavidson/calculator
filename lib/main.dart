@@ -90,9 +90,27 @@ class _CalculatorState extends State<Calculator> {
     });
   }
 
+  void removeChar() {
+    setState(() {
+      if (operatorStatus == false) {
+        _inputBar1 = (double.parse(_inputBar1)).toString();
+        if (_inputBar1 != null && _inputBar1.length > 0) {
+          _inputBar1 = _inputBar1.substring(0, _inputBar1.length - 1);
+          num1 = double.parse(_inputBar1);
+        }
+      } else {
+        _inputBar2 = (double.parse(_inputBar2)).toString();
+        if (_inputBar2 != null && _inputBar2.length > 0) {
+          _inputBar2 = _inputBar2.substring(0, _inputBar2.length - 1);
+          num2 = double.parse(_inputBar2);
+        }
+      }
+    });
+  }
+
   void setInputHistory() {
     setState(() {
-      _inputHistory = _inputBar1 +' '+ _operator +' '+ _inputBar2;
+      _inputHistory = _inputBar1 + ' ' + _operator + ' ' + _inputBar2;
     });
   }
 
@@ -148,12 +166,14 @@ class _CalculatorState extends State<Calculator> {
                       children: <Widget>[
                         Padding(
                           padding: EdgeInsets.fromLTRB(65, 20, 25, 5),
-                          child: Text(
-                            '$_inputHistory',
-                            style: TextStyle(
-                                color: darkText,
-                                fontSize: 30,
-                                fontWeight: FontWeight.w500),
+                          child: SingleChildScrollView(
+                            child: Text(
+                              '$_inputHistory',
+                              style: TextStyle(
+                                  color: darkText,
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.w500),
+                            ),
                           ),
                         ),
                         Padding(
@@ -432,9 +452,11 @@ class _CalculatorState extends State<Calculator> {
                       children: <Widget>[
                         TextButton(
                           style: TextButton.styleFrom(primary: darkText),
-                          onPressed: () {},
+                          onPressed: () {
+                            removeChar();
+                          },
                           child: Text(
-                            '',
+                            '<-',
                             style: TextStyle(
                                 color: darkText,
                                 fontSize: 40,
